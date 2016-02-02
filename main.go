@@ -4,11 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/alvalea/go-rest/lib"
 )
 
 func main() {
 	r := mux.NewRouter()
-	fs := http.FileServer(http.Dir("web"))
-	r.Handle("/", fs)
-	http.ListenAndServe(":8000", r)
+	r.PathPrefix("/web/").Handler(http.StripPrefix("/web/",
+		http.FileServer(http.Dir("web"))))
+	r.HandleFunc("/api/notes", lib.GetNoteHandler).Methods("GET")
+	http.ListenAndServe(":8080", r)
 }
