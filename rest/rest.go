@@ -1,4 +1,4 @@
-package lib
+package rest
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 //HTTP Get - /api/notes
 func GetNoteHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	j, err := json.Marshal(`{"hello": "world"}`)
+	j, err := json.Marshal(`{"note1": "hello world"}`)
 	if err != nil {
 		panic(err)
 	}
