@@ -39,9 +39,9 @@ func setupBroker(r *mux.Router) *sse.Broker{
 func testBroker(b *sse.Broker) {
 	go func() {
 		for i := 0; ; i++ {
-			b.Messages <- fmt.Sprintf("%d - the time is %v", i, time.Now())
+			b.SendEvent(fmt.Sprintf("%d - the time is %v", i, time.Now()))
 
-			log.Printf("Sent message %d ", i)
+			log.Printf("Sent event %d ", i)
 			time.Sleep(5 * 1e9)
 
 		}
