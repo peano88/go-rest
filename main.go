@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/alvalea/go-rest/rest"
 	"github.com/alvalea/go-rest/sse"
+	"github.com/alvalea/go-rest/jwt"
 )
 
 func setupStatic(r *mux.Router) {
@@ -17,6 +18,8 @@ func setupStatic(r *mux.Router) {
 }
 
 func setupRest(r *mux.Router) {
+	r.HandleFunc("/api/login", jwt.LoginHandler).Methods("POST")
+	r.HandleFunc("/api/admin", jwt.AuthHandler(jwt.AdminHandler)).Methods("GET")
 	r.HandleFunc("/api/notes", rest.GetNoteHandler).Methods("GET")
 }
 
